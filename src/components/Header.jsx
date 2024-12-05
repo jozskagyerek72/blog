@@ -83,7 +83,7 @@ export const Header = () => {
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
-                                        <RxAvatar/>
+                                        <RxAvatar title={user.displayName}/>
                                     </DropdownToggle>
                                     <DropdownMenu end>
                                         <NavLink className="nav-link" to="/profile">
