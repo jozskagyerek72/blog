@@ -43,8 +43,8 @@ export const Header = () => {
 
 
     return (
-        <div>
-            <Navbar fixed='top'  expand="md" style={{borderBottom:"1px solid gray"}}>
+        <div >
+            <Navbar  fixed='top'  expand="md" style={{borderBottom:"1px solid gray", backgroundColor:"whitesmoke"}}>
                 <NavbarBrand href="/"><FaBloggerB/></NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>

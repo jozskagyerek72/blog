@@ -36,10 +36,11 @@ export const Home = () => {
 
 
     return (
+        <div >
         <div style={{
             display: "flex",
             flexDirection: "row",
-            transform: "translate(20%, 50%)"
+            transform: "translate(20%, 200%)"
         }}>
 
             {/*data.map((v, i)=> (
@@ -67,7 +68,12 @@ export const Home = () => {
                 style={{ fontSize: '2em', display: 'inline-block' }}
                 repeat={Infinity}
             />
-
+            </div>
+            <div className="categs" style={{
+            display: "flex",
+            flexDirection: "row",
+            transform: "translate(20%, 50%)"
+        }}>
             {loading && <HashLoader />}
             {categories && categories.map((obj) =>
                 <Card key={obj.id}
@@ -87,7 +93,7 @@ export const Home = () => {
 
                     </CardBody>
                 </Card>)}
-
+            </div>
         </div>
     )
 }
