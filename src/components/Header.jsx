@@ -23,13 +23,20 @@ import { GoGear } from "react-icons/go";
 import { useState } from 'react';
 import { useContext } from 'react';
 import { userContext } from '../context/UserContext';
+import { useEffect } from 'react';
+import { extraUrlAndId } from '../utils/utils';
 
 
 export const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const {user, logOutUser} = useContext(userContext)
+    const [avatar,setAvatar] = useState(null)
     console.log(user);
+    
+    useEffect(()=>{
+        user?.photoURL && setAvatar(extraUrlAndId(user.photoURL).url)
+      },[user])
     
 
     const toggle = () => setIsOpen(!isOpen);
@@ -83,7 +90,8 @@ export const Header = () => {
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
-                                        <RxAvatar title={user.displayName}/>
+                                        
+                                       {avatar? <img src={avatar} className='myavatar' /> : <RxAvatar title={user.displayName}/>}
                                     </DropdownToggle>
                                     <DropdownMenu end>
                                         <NavLink className="nav-link" to="/profile">

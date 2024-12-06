@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 import { userContext } from '../context/UserContext'
 
-export const Toastify = ({signin,err, signup, resetPw}) => {
+export const Toastify = ({signin,err, signup, resetPw, update}) => {
   
     const {setMsg} = useContext(userContext)
     const navigate = useNavigate()
@@ -22,9 +22,12 @@ export const Toastify = ({signin,err, signup, resetPw}) => {
         }else if(resetPw){
           toast.success(resetPw,{position:"top-center"})
           setTimeout(()=>navigate("/"),2000)
-        }
+        }else if(update)
+          {
+            toast.success(update,{position:"top-center"})
+          }
         setMsg({})
-    },[signin,err, signup, resetPw])
+    },[signin,err, signup, resetPw, update])
   
     return (
     <div>
