@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet , NavLink} from 'react-router-dom'
+import { Outlet, NavLink } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Collapse,
@@ -8,7 +8,7 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    
+
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -30,22 +30,22 @@ import { extraUrlAndId } from '../utils/utils';
 export const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const {user, logOutUser} = useContext(userContext)
-    const [avatar,setAvatar] = useState(null)
+    const { user, logOutUser } = useContext(userContext)
+    const [avatar, setAvatar] = useState(null)
     console.log(user);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         user?.photoURL && setAvatar(extraUrlAndId(user.photoURL).url)
-      },[user])
-    
+    }, [user])
+
 
     const toggle = () => setIsOpen(!isOpen);
 
 
     return (
         <div >
-            <Navbar  fixed='top'  expand="md" style={{borderBottom:"1px solid gray", backgroundColor:"whitesmoke"}}>
-                <NavbarBrand href="/"><FaBloggerB/></NavbarBrand>
+            <Navbar fixed='top' expand="md" style={{ borderBottom: "1px solid gray", backgroundColor: "whitesmoke" }}>
+                <NavbarBrand href="/"><FaBloggerB /></NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
@@ -56,56 +56,64 @@ export const Header = () => {
                             <NavLink to="posts" className="nav-link">
                                 Posts
                             </NavLink>
+
+                            
+                            {user && //szerda add new post
+                                <NavLink to="create" className="nav-link">
+                                    New post
+                                </NavLink>
+                            }
+
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                               <GoGear/>
+                                <GoGear />
                             </DropdownToggle>
                             <DropdownMenu end>
                                 <DropdownItem>Profile setting</DropdownItem>
-                                
+
                                 <DropdownItem divider />
                                 <DropdownItem>Delete profile</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
-                    
-                    <Nav  navbar >
+
+                    <Nav navbar >
                         {/* authorization menu */}
                         {
-                            !user?
-                            <>
-                                <NavItem>
-                                <NavLink className="nav-link" to="/auth/in">Log in</NavLink>
-                                </NavItem>
+                            !user ?
+                                <>
+                                    <NavItem>
+                                        <NavLink className="nav-link" to="/auth/in">Log in</NavLink>
+                                    </NavItem>
 
-                                <NavItem>
-                                    <NavLink className="nav-link" to="/auth/up">Sign up</NavLink>
-                                </NavItem>
-                            </>
-                            :
-                            <>
-                                <NavItem>
-                                <NavLink className="nav-link" to="/" onClick={()=>logOutUser()}>Log out</NavLink>
-                                </NavItem>
-                                <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav caret>
-                                        
-                                       {avatar? <img src={avatar} className='myavatar' /> : <RxAvatar title={user.displayName}/>}
-                                    </DropdownToggle>
-                                    <DropdownMenu end>
-                                        <NavLink className="nav-link" to="/profile">
+                                    <NavItem>
+                                        <NavLink className="nav-link" to="/auth/up">Sign up</NavLink>
+                                    </NavItem>
+                                </>
+                                :
+                                <>
+                                    <NavItem>
+                                        <NavLink className="nav-link" to="/" onClick={() => logOutUser()}>Log out</NavLink>
+                                    </NavItem>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle nav caret>
 
-                                        <DropdownItem>Profile setting</DropdownItem>
-                                        </NavLink>
-                                        
-                                        <DropdownItem divider />
-                                        <DropdownItem>Delete profile</DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-                            </>
+                                            {avatar ? <img src={avatar} className='myavatar' /> : <RxAvatar title={user.displayName} />}
+                                        </DropdownToggle>
+                                        <DropdownMenu end>
+                                            <NavLink className="nav-link" to="/profile">
+
+                                                <DropdownItem>Profile setting</DropdownItem>
+                                            </NavLink>
+
+                                            <DropdownItem divider />
+                                            <DropdownItem>Delete profile</DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                </>
                         }
-                        
+
                     </Nav>
                 </Collapse>
             </Navbar>
