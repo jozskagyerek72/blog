@@ -108,7 +108,9 @@ export const Header = () => {
                                             </NavLink>
 
                                             <DropdownItem divider />
+                                            <NavLink className="nav-link" to="/deleteAccount">
                                             <DropdownItem>Delete profile</DropdownItem>
+                                            </NavLink>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
                                 </>

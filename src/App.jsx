@@ -10,6 +10,8 @@ import { Notfound } from "./pages/Notfound"
 import { Header } from "./components/Header"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
+import { DeleteAccount } from "./pages/DeleteAccount"
+import { ConfirmProvider } from "material-ui-confirm"
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,8 @@ const router = createBrowserRouter([
       { path: "/pwreset", element: <PwReset /> },
       { path: "/profile", element: <Profile /> },
       { path: "/admin", element: <Admin /> },
-      { path: "*", element: <Notfound /> }
+      { path: "*", element: <Notfound /> },
+      { path: "/deleteAccount" , element: <DeleteAccount/> }
     ]
   }
 

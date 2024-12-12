@@ -90,7 +90,7 @@ export const AddEditPost = () => {
           onChange={(e) => setAvatar(URL.createObjectURL(e.target.files[0]))}
         />
         <p className='text-danger'>{errors?.file?.message}</p>
-        <input type='submit' />
+        <input type='submit' disabled={!selcateg || !story}/>
         {loading && <ClimbingBoxLoader />}
       </form>
       {msg && <Toastify {...msg} />}

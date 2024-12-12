@@ -2,6 +2,7 @@ import React from 'react'
 import { auth } from '../utils/firebaseApp'
 import {
     createUserWithEmailAndPassword,
+    deleteUser,
     onAuthStateChanged,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
@@ -82,9 +83,21 @@ export const UserProvider = ({ children }) => {
         }
     }
 
+    const deleteAccount = async () =>
+    {
+        try {
+            await deleteUser(auth.currentUser)
+            console.log("successfull delete");
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     return (
 
-        <userContext.Provider value={{ user, signInUser, logOutUser, msg, setMsg, singUpUser, resetPassword , updateUser}}>
+        <userContext.Provider value={{ user, signInUser, logOutUser, msg, setMsg, singUpUser, resetPassword , updateUser, deleteAccount}}>
             {children}
         </userContext.Provider>
     
