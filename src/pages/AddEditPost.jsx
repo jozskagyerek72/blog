@@ -10,6 +10,9 @@ import { middleStyle } from '../utils/utils'
 import { Story } from "../components/Story.jsx"
 import { uploadFile } from "../utils/uploadFile.js"
 import { addPost } from '../utils/crudUtil.js'
+import { DropDown } from '../components/DropDown.jsx'
+import { CategContext } from '../context/CategContext.jsx'
+import { Alerts } from '../components/Alerts.jsx'
 
 export const AddEditPost = () => {
 
@@ -21,7 +24,10 @@ export const AddEditPost = () => {
   const { user, msg } = useContext(userContext)
   const [loading, setLoading] = useState(false)
   const [avatar, setAvatar] = useState(null)
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
+
+  const { categories } = useContext(CategContext)
+  const [selcateg, setSelcateg] = useState(null)
 
   if (!user) { return <Home /> }
 
@@ -34,19 +40,22 @@ export const AddEditPost = () => {
       story,
       author: user.displayName,
       userId: user.uid,
-      category: ""
+      category: selcateg
     }
 
-    
+
     try {
 
       const file = data?.file ? data?.file[0] : null
       const { url, id } = file ? await uploadFile(file) : null
       delete newPostData.file
-      newPostData = { ...newPostData, photo : { url,id } }
+      newPostData = { ...newPostData, photo: { url, id } }
       console.log("new post: ", newPostData);
       addPost(newPostData)
       setUploaded(true)
+      reset()
+      setAvatar(null)
+      setStory(null)
 
     } catch (error) {
       console.log(error);
@@ -63,7 +72,7 @@ export const AddEditPost = () => {
         <input {...register("title", { required: true })} type='text' placeholder='Title' />
 
         <p className='text-danger' >{errors?.title && "Please add a title"}</p>
-
+        <DropDown categories={categories} setSelcateg={setSelcateg} selcateg={selcateg} />
         <Story setStory={setStory} uploaded={uploaded} />
 
         <label >picture</label>
@@ -85,7 +94,7 @@ export const AddEditPost = () => {
         {loading && <ClimbingBoxLoader />}
       </form>
       {msg && <Toastify {...msg} />}
-
+      {uploaded&& <Alerts txt="Successful upload"/>  }
       {avatar && <img className='myavatar' style={{ height: "100px", width: "100px", borderRadius: "100px" }} src={avatar} />}
 
     </div >
