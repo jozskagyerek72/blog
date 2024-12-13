@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
 import { DeleteAccount } from "./pages/DeleteAccount"
 import { ConfirmProvider } from "material-ui-confirm"
+import { ReadPost } from "./pages/ReadPost"
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,8 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/admin", element: <Admin /> },
       { path: "*", element: <Notfound /> },
-      { path: "/deleteAccount" , element: <DeleteAccount/> }
+      { path: "/deleteAccount" , element: <DeleteAccount/> },
+      { path: "/readPost/:id" , element: <ReadPost/> }
     ]
   }
 
