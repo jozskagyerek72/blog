@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { readSinglePost } from '../utils/crudUtil'
-
+import parse from "html-react-parser"
 
 
 export const ReadPost = () => {
@@ -15,17 +15,18 @@ export const ReadPost = () => {
     const [post,setPost] = useState(null)
 
     useEffect(()=>{
-        readSinglePost(params.id, setPost)
+        readSinglePost(params.id, setPost)  
     },[])
 
-    console.log(post
-        
-    );
+    console.log(post);
     
     
     return (
         <div style={middleStyle}>
-            
+            {post&& <>
+                <img src={post.photo["url"]} alt={post.title} />
+                <p>{parse(post.story)}</p>
+            </>}
             <button className="btn btn-danger" onClick={()=>navigate("/posts")} >go back</button>
         </div>
     )
