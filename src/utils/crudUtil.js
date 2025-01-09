@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore"
 import { db } from "./firebaseApp"
 
 export const readCategories = ( setCategories ) =>
@@ -39,4 +39,18 @@ export const deletePost = async (id) =>
     const docRef = doc(db, "posts", id)
     const docSnap = await getDoc(docRef)
     await deleteDoc(docRef)
+}
+
+export const toggleLikes = async (uid,id) =>
+{
+    const docRef = doc(db, "posts", id)
+    const docSnap = await getDoc(docRef)
+    const likesArr = docSnap.data().likes || []
+    if (likesArr.includes(uid)) {
+        console.log("unlike")
+        await updateDoc(docRef,{likes:likesArr.filter(p_id=>p_id!=uid)})
+    }else {
+        console.log("like")
+        await updateDoc(docRef,{likes:[...likesArr,uid]})
+    }
 }

@@ -3,14 +3,16 @@ import { middleStyle } from '../utils/utils'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { deletePost, readSinglePost } from '../utils/crudUtil'
+import { deletePost, readSinglePost, toggleLikes } from '../utils/crudUtil'
 import parse from "html-react-parser"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useContext } from 'react'
 import { userContext } from '../context/UserContext'
 
 import { useConfirm } from 'material-ui-confirm'
-
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { Alerts } from '../components/Alerts'
 
 export const ReadPost = () => {
 
@@ -20,6 +22,7 @@ export const ReadPost = () => {
     const confirm = useConfirm()
     console.log(params);
     const [post, setPost] = useState(null)
+    const [txt, setTxt] = useState(null)
 
     useEffect(() => {
         readSinglePost(params.id, setPost)
@@ -37,7 +40,7 @@ export const ReadPost = () => {
                 title: "Do you really want to delete this post?"
             })
             deletePost(post.id)
-            
+
 
             navigate("/posts")
 
@@ -48,6 +51,11 @@ export const ReadPost = () => {
 
     }
 
+    const handleLike = () => {
+        if (!user) setTxt("be kell jeneltkezni")
+        else toggleLikes( user.uid, post.id)
+    }
+
     return (
         <div style={middleStyle}>
             {post && <>
@@ -56,8 +64,14 @@ export const ReadPost = () => {
             </>}
             <button className="btn btn-danger" onClick={() => navigate("/posts")} >go back</button>
             {user && post && (user.uid == post.userId) &&
-                <button><DeleteForeverIcon onClick={handleDelete} /></button>
+                <>
+                    <button><DeleteForeverIcon onClick={handleDelete} /></button>
+                    <button><EditNoteIcon /></button>
+                </>
             }
+            <button><ThumbUpOffAltIcon onClick={handleLike} /></button>
+            {post && <span>likes: {post.likes.length || 0}</span>}
+            {txt && <Alerts txt={txt} err={false} />}
         </div>
     )
 }
