@@ -5,6 +5,7 @@ import { readPosts } from '../utils/crudUtil'
 import { CardContainer } from '../components/CardContainer'
 import { Cetegories } from '../components/Cetegories'
 import { useSearchParams } from 'react-router-dom'
+import { SearchBox } from '../components/Search'
 
 export const Posts = () => {
 
@@ -21,8 +22,9 @@ export const Posts = () => {
 
   return (
     <div>
-      <div>
+      <div >
         <Cetegories selcateg={selcateg} setSelcateg={setSelcateg} />
+        {posts&& <SearchBox items={posts.map(obj => ({id:obj.id, name:obj.title}))} />}
       </div>
       <CardContainer posts={posts} setPosts={setPosts} />
 

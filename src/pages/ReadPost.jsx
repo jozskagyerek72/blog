@@ -13,6 +13,8 @@ import { useConfirm } from 'material-ui-confirm'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Alerts } from '../components/Alerts'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 export const ReadPost = () => {
 
@@ -53,25 +55,61 @@ export const ReadPost = () => {
 
     const handleLike = () => {
         if (!user) setTxt("be kell jeneltkezni")
-        else toggleLikes( user.uid, post.id)
+        else toggleLikes(user.uid, post.id)
     }
 
     return (
-        <div style={middleStyle}>
+        <div style={{
+            maxWidth: 800,
+            height: 800,
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: 100,
+            border: "solid 1px black",
+            borderRadius: "10px",
+            backgroundColor: "whitesmoke",
+            fontFamily: "Roboto Mono, serif"
+        }}>
             {post && <>
-                <img src={post.photo["url"]} alt={post.title} />
+                <img style={{
+                    maxHeight: 300,
+                    display:"flex",
+                    marginTop: 20,
+                    marginLeft:"auto",
+                    marginRight:"auto"
+                }} src={post.photo["url"]} alt={post.title} />
                 <p>{parse(post.story)}</p>
             </>}
-            <button className="btn btn-danger" onClick={() => navigate("/posts")} >go back</button>
-            {user && post && (user.uid == post.userId) &&
-                <>
-                    <button><DeleteForeverIcon onClick={handleDelete} /></button>
-                    <button><EditNoteIcon /></button>
-                </>
-            }
-            <button><ThumbUpOffAltIcon onClick={handleLike} /></button>
-            {post && <span>likes: {post.likes.length || 0}</span>}
-            {txt && <Alerts txt={txt} err={false} />}
+            <div style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "center",
+                marginLeft: 10,
+                marginTop:  100
+            }}>
+                <button className="btn btn-danger" onClick={() => navigate("/posts")} ><ArrowBackIosIcon /> Vissza a posztokhoz</button>
+
+                <div style={{
+                    display: "flex",
+                    gap: 10,
+                    alignItems: "center",
+                    marginLeft: "auto",
+                    marginRight: 20,
+
+                }}>
+                    {user && post && (user.uid == post.userId) &&
+                        <>
+                            <button><DeleteForeverIcon onClick={handleDelete} /></button>
+                            <button onClick={()=>navigate("/update/"+post.id)} ><EditNoteIcon /></button>
+                        </>
+                    }
+                    <button onClick={handleLike}>{/*post.likes.includes(user.uid) ? <ThumbUpAltIcon onClick={handleLike}/> : <ThumbUpOffAltIcon onClick={handleLike}/>  console.log(post.id)
+                    */} <ThumbUpOffAltIcon  /></button>
+                    {post && <span style={{ fontWeight: "bold" }}>likes: {post.likes.length || 0}</span>}
+                    {txt && <Alerts txt={txt} err={false} />}
+                </div>
+            </div>
+
         </div>
     )
 }

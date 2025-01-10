@@ -51,7 +51,7 @@ const ExpandMore = styled((props) => {
     ],
 }));
 
-export const SingleCard = ({ author, category, photo, story, timestamp, title, userId , id}) => {
+export const SingleCard = ({ author, category, photo, story, timestamp, title, userId, id }) => {
 
     const { user } = useContext(userContext)
     //console.log(extraUrlAndId(user.photoURL).url);
@@ -61,34 +61,34 @@ export const SingleCard = ({ author, category, photo, story, timestamp, title, u
         setExpanded(!expanded);
     };
 
-    const categIcon = 
+    const categIcon =
     {
-        "Jármű" : <Agriculture/>,
-        "Konyha" : <SoupKitchen/>,
-        "Szórakozás":<Celebration/>,
-        "Technológia":<ScreenSearchDesktop/>
+        "Jármű": <Agriculture />,
+        "Konyha": <SoupKitchen />,
+        "Szórakozás": <Celebration />,
+        "Technológia": <ScreenSearchDesktop />
     }
 
     const getcateg = () => {
-        if(category=="Jármű") return categIcon.Jármű
-        if(category=="Konyha") return categIcon.Konyha
-        if(category=="Szórakozás") return categIcon.Szórakozás
-        if(category=="Technológia") return categIcon.Technológia
+        if (category == "Jármű") return categIcon.Jármű
+        if (category == "Konyha") return categIcon.Konyha
+        if (category == "Szórakozás") return categIcon.Szórakozás
+        if (category == "Technológia") return categIcon.Technológia
     }
     const navigate = useNavigate()
 
     return (
         <div>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{
+                 maxWidth: 345,
+                 height: 400 
+
+            }}>
                 <CardHeader
                     avatar={
-                        getcateg() || <DoNotDisturb/>
+                        getcateg() || <DoNotDisturb />
                     }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
+                    
                     title={title}
                     subheader={author}
                 />
@@ -100,26 +100,20 @@ export const SingleCard = ({ author, category, photo, story, timestamp, title, u
                 />
                 <CardContent>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {sanitizeUrl(story)}
+                        {sanitizeUrl(story).length>80 ? sanitizeUrl(story).substring(0,80)+"..." : sanitizeUrl(story)}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    {/* likeok szamat lehetne displayelni
+                    <IconButton aria-label="add to favorites"> 
                         <FavoriteIcon />
-                    </IconButton>
+                    </IconButton>*/}
                     <IconButton aria-label="share">
-                        <ReadMore onClick={()=>navigate("/readPost/"+id)}/>
+                        <ReadMore onClick={() => navigate("/readPost/" + id)} />
                     </IconButton>
-                    <ExpandMore
-                        expand={expanded}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ReadMore/>
-                    </ExpandMore>
+                    
                 </CardActions>
-                
+
             </Card>
         </div>
     )

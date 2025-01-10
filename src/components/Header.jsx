@@ -36,7 +36,7 @@ export const Header = () => {
 
     useEffect(() => {
         user?.photoURL && setAvatar(extraUrlAndId(user.photoURL).url)
-        !user&& setAvatar(null)
+        !user && setAvatar(null)
     }, [user, user?.photoURL])
 
 
@@ -58,25 +58,20 @@ export const Header = () => {
                                 Posts
                             </NavLink>
 
-                            
-                            {user && //szerda add new post
+                        </NavItem>
+
+
+
+                        {user && //szerda add new post
+                            <NavItem>
                                 <NavLink to="create" className="nav-link">
                                     New post
                                 </NavLink>
-                            }
+                            </NavItem>
+                        }
 
-                        </NavItem>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                <GoGear />
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                                <DropdownItem>Profile setting</DropdownItem>
 
-                                <DropdownItem divider />
-                                <DropdownItem>Delete profile</DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
+
                     </Nav>
 
                     <Nav navbar >
@@ -110,7 +105,7 @@ export const Header = () => {
 
                                             <DropdownItem divider />
                                             <NavLink className="nav-link" to="/deleteAccount">
-                                            <DropdownItem>Delete profile</DropdownItem>
+                                                <DropdownItem>Delete profile</DropdownItem>
                                             </NavLink>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
