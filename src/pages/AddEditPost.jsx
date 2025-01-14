@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ClimbingBoxLoader } from 'react-spinners'
 import { Toastify } from '../components/Toastify'
-import { middleStyle } from '../utils/utils'
+import { authStyle, middleStyle } from '../utils/utils'
 import { Story } from "../components/Story.jsx"
 import { uploadFile } from "../utils/uploadFile.js"
 import { addPost, readSinglePost, updatePost } from '../utils/crudUtil.js'
@@ -58,7 +58,7 @@ export const AddEditPost = () => {
     if (params.id) {
       //update
       try {
-        updatePost(params.id, { ...data, category:selcateg, story })
+        updatePost(params.id, { ...data, category: selcateg, story })
 
       } catch (error) {
         console.log(error);
@@ -105,7 +105,7 @@ export const AddEditPost = () => {
   }
 
   return (
-    <div style={middleStyle}>
+    <div style={authStyle}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label >Post title:</label>
         <input {...register("title", { required: true })} type='text' placeholder='Title' />
@@ -114,7 +114,7 @@ export const AddEditPost = () => {
         <DropDown categories={categories} setSelcateg={setSelcateg} selcateg={selcateg} />
         <Story setStory={setStory} uploaded={uploaded} story={story} />
 
-        <label >picture</label>
+        <label >Upload an image</label>
         <input type="file" disabled={params.id} {...register("file", {
           required: !params.id,
           validate: (value) => {

@@ -13,7 +13,8 @@ export const CardContainer = ({ posts, setPosts }) => {
       margin: "100px",
       justifyContent: "center",
       alignItems: "center",
-      gap: "10px"
+      gap: "10px",
+      flexWrap:"wrap"
     }}>
       {posts && posts.map((obj) => <SingleCard {...obj} key={obj.id} />)}
     </div>

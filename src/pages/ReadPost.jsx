@@ -54,7 +54,7 @@ export const ReadPost = () => {
     }
 
     const handleLike = () => {
-        if (!user) setTxt("be kell jeneltkezni")
+        if (!user) setTxt("Sign in first to like the post")
         else toggleLikes(user.uid, post.id)
     }
 

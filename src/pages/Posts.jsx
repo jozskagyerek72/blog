@@ -21,12 +21,22 @@ export const Posts = () => {
   }, [selcateg])
 
   return (
-    <div>
-      <div >
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      flexWrap: "wrap"
+    }}>
+      <div style={{ flexDirection: "row", flexWrap: "wrap", display: "flex" }}>
         <Cetegories selcateg={selcateg} setSelcateg={setSelcateg} />
-        {posts&& <SearchBox items={posts.map(obj => ({id:obj.id, name:obj.title}))} />}
       </div>
-      <CardContainer posts={posts} setPosts={setPosts} />
+      <div style={{ flexDirection: "row", flexWrap: "wrap", display: "flex" }}>
+        {posts && <SearchBox  items={posts.map(obj => ({ id: obj.id, name: obj.title }))} />}
+      </div>
+      <div style={{ flexDirection: "row", flexWrap: "wrap", display: "flex" }}>
+        <CardContainer posts={posts} setPosts={setPosts} />
+      </div>
 
 
     </div>

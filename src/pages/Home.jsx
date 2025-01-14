@@ -9,6 +9,7 @@ import { HashLoader } from 'react-spinners'
 import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap'
 import { TypeAnimation } from 'react-type-animation'
 import { NavLink } from 'react-router-dom'
+import { responsiveContainer } from '../utils/utils'
 
 const middleStyle =
 {
@@ -23,40 +24,32 @@ const middleStyle =
 
 export const Home = () => {
 
-    /*
-    const [data,setData] = useState([])
-    marci megoldasa volt
-    useEffect(()=>{
-        getCategories().then((v)=>setData(v)) // vicces
-    })
-        */
-
     const [loading, setLoading] = useState(false)
     const { categories } = useContext(CategContext)
     console.log(categories);
 
 
     return (
-        <div >
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection:"column",
+            marginTop:"10rem"
+        }}>
             <div style={{
                 display: "flex",
                 flexDirection: "row",
-                transform: "translate(20%, 200%)"
+                flexWrap: "wrap"
+
+
             }}>
-
-                {/*data.map((v, i)=> (
-            <CardFilter key={i} img_url={v._document.data.value.mapValue.fields.photoUrl.stringValue} filter={v._document.data.value.mapValue.fields.name.stringValue}/>
-        ))*/}
-
-                {/* <CardFilter img_url="public\entertaiment.jpg" filter="entertimant"/>
-        <CardFilter img_url="public\technology.jpg" filter="technology"/>
-        <CardFilter img_url="public\1998_Volkswagen_Passat_S_TDi_1.9_Front.jpg" filter="passat"/> */}
 
                 <TypeAnimation
                     sequence={[
-                        // Same substring at the start will only be typed out once, initially
+
                         'Blog: jármű',
-                        1000, // wait 1s before replacing "Mice" with "Hamsters"
+                        1000,
                         'Blog: Konyha',
                         1000,
                         'Blog: Szórakozás',
@@ -73,19 +66,25 @@ export const Home = () => {
             <div className="categs" style={{
                 display: "flex",
                 flexDirection: "row",
-                transform: "translate(20%, 50%)"
+                flexWrap: "wrap",
+
+                gap: "10px"
             }}>
                 {loading && <HashLoader />}
                 {categories && categories.map((obj) =>
                     <Card key={obj.id}
                         style={{
-                            width: 300,
-                            height: 400
+                            width: "20rem",
+
                         }}
                     >
                         <img
                             alt="Sample"
                             src={obj.photoUrl}
+                            style={{
+                                aspectRatio: "9/16",
+                                objectFit: 'cover'
+                            }}
                         />
                         <CardBody>
 

@@ -5,29 +5,22 @@ import { Button, FormGroup, Input, Label } from 'reactstrap'
 import { userContext } from '../context/UserContext'
 import { Toastify } from '../components/Toastify'
 import { useEffect } from 'react'
+import { authStyle } from '../utils/utils'
 
-const middleStyle =
-{
-    width: "300px",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
 
-}
 
 export const Auth = () => {
 
 
-    const {user, signInUser, singUpUser, msg, setMsg} = useContext(userContext)
+    const { user, signInUser, singUpUser, msg, setMsg } = useContext(userContext)
     const location = useLocation()
     console.log(location.pathname);
-    const isSignIn = location.pathname=="/auth/in" //🤓 ha egyenlo akkot true
+    const isSignIn = location.pathname == "/auth/in" //🤓 ha egyenlo akkot true
     //console.log(user);
 
-    useEffect(()=>{
+    useEffect(() => {
         setMsg(null)
-    },[])
+    }, [])
 
     const navigate = useNavigate()
 
@@ -36,19 +29,19 @@ export const Auth = () => {
         console.log("submitted");
         const data = new FormData(event.currentTarget)
         console.log(data.get("email"), data.get("password"));
-        if(isSignIn){
+        if (isSignIn) {
 
             signInUser(data.get('email'), data.get('password'))
-        }else {
+        } else {
             singUpUser(data.get("email"), data.get("password"), data.get("displayName"))
         }
 
     }
 
     return (
-        <div className='page'>
-            <div style={middleStyle}>
-                <h3>{isSignIn?"Sign ℹ🆖":"Sign 🆙"}</h3>
+        <div >
+            <div style={authStyle}>
+                <h3>{isSignIn ? "Sign in" : "Sign up"}</h3>
 
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
@@ -58,7 +51,7 @@ export const Auth = () => {
                         <Input
                             id="exampleEmail"
                             name="email"
-                            placeholder="with a placeholder"
+                            placeholder="Enter your email adress"
                             type="email"
                         />
                     </FormGroup>
@@ -69,27 +62,27 @@ export const Auth = () => {
                         <Input
                             id="examplePassword"
                             name="password"
-                            placeholder="password placeholder"
+                            placeholder="Enter your password"
                             type="password"
                         />
                     </FormGroup>
-                    {!isSignIn&&
-                    <>
-                        <FormGroup>
-                        <Label for="exampleEmail">
-                            Username
-                        </Label>
-                        <Input
-                            id="exampleUsername"
-                            name="displayName"
-                            placeholder="with a placeholder"
-                            type="username"
-                        />
-                    </FormGroup>
-                    </>}
-                    <Button>submit</Button>
+                    {!isSignIn &&
+                        <>
+                            <FormGroup>
+                                <Label for="exampleEmail">
+                                    Username
+                                </Label>
+                                <Input
+                                    id="exampleUsername"
+                                    name="displayName"
+                                    placeholder="Choose a username"
+                                    type="username"
+                                />
+                            </FormGroup>
+                        </>}
+                    <Button style={{marginBottom:20, marginTop:30, width:"100%"}}>Submit</Button>
                 </Form>
-                {isSignIn&& <a href="#" onClick={()=>navigate("/pwreset")}>Forgotten password...</a>}
+                {isSignIn && <a style={{textDecoration:"none", color:"#1f0d3d"}}  href="#" onClick={() => navigate("/pwreset")}>Forgotten password...</a>}
                 {msg && <Toastify {...msg} />}
             </div>
         </div>

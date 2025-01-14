@@ -1,10 +1,11 @@
 import React from 'react'
-import {middleStyle} from "../utils/utils.js"
+
 import { Form } from 'react-router-dom'
 import { Button, FormGroup, Input, Label } from 'reactstrap'
 import { useContext } from 'react'
 import { userContext } from '../context/UserContext.jsx'
 import { Toastify } from '../components/Toastify.jsx'
+import { authStyle } from '../utils/utils.js'
 
 export const PwReset = () => {
  
@@ -21,8 +22,8 @@ export const PwReset = () => {
  
   return (
     <div>
-       <div className='page'>
-            <div style={middleStyle}>
+       <div >
+            <div style={authStyle}>
                 <h3>Reset password</h3>
 
                 <Form onSubmit={handleSubmit}>
@@ -33,13 +34,13 @@ export const PwReset = () => {
                         <Input
                             id="exampleEmail"
                             name="email"
-                            placeholder="with a placeholder"
+                            placeholder="Enter your email address"
                             type="email"
                         />
                     </FormGroup>
                     
                     
-                    <Button>Request new password</Button>
+                    <Button style={{marginBottom:20, marginTop:30, width:"100%"}}>Request new password</Button>
                 </Form>
                 
                 {msg && <Toastify {...msg} />}

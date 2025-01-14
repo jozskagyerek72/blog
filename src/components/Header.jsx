@@ -95,7 +95,7 @@ export const Header = () => {
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle nav caret>
 
-                                            {avatar ? <img src={avatar} className='myavatar' /> : <RxAvatar title={user.displayName} />}
+                                            {avatar ? <img src={avatar} style={{objectFit:'cover'}} className='myavatar' /> : <RxAvatar title={user.displayName} />}
                                         </DropdownToggle>
                                         <DropdownMenu end>
                                             <NavLink className="nav-link" to="/profile">

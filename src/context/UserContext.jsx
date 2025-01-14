@@ -32,7 +32,7 @@ export const UserProvider = ({ children }) => {
         setMsg({})
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            setMsg({signin:"LOGGED... in... successfully..."})
+            setMsg({signin:"Logged in successfully"})
         } catch (error) {
             console.log(error);
             setMsg({err:error.message})
@@ -51,7 +51,7 @@ export const UserProvider = ({ children }) => {
             await createUserWithEmailAndPassword(auth,email,password)
             await updateProfile(auth.currentUser, {displayName})
             setMsg({})
-            setMsg({signup:"sikeres regisztracio"})
+            setMsg({signup:"Successful registration"})
             
         } catch (error) {
             setMsg({err:error.message})
@@ -77,7 +77,7 @@ export const UserProvider = ({ children }) => {
             else if (displayName) await updateProfile(auth.currentUser, {displayName})
             else if (photoURL) await updateProfile(auth.currentUser, {photoURL})
             setMsg({})
-            setMsg({update:"updated successfully"})
+            setMsg({update:"User updated successfully"})
         } catch (error) {
             setMsg({err:error.message})
         }
@@ -87,7 +87,7 @@ export const UserProvider = ({ children }) => {
     {
         try {
             await deleteUser(auth.currentUser)
-            console.log("successfull delete");
+            console.log("Successful delete");
             
         } catch (error) {
             console.log(error);

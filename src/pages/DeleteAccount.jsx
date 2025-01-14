@@ -1,5 +1,5 @@
 import React from 'react'
-import { middleStyle } from '../utils/utils'
+import { authStyle, middleStyle } from '../utils/utils'
 import { useContext } from 'react'
 import { userContext } from '../context/UserContext'
 import { useConfirm } from 'material-ui-confirm'
@@ -20,9 +20,9 @@ export const DeleteAccount = () => {
     {
         try {
             await confirm({
-                description : "changes cannot be unmade",
-                confirmationText : "confirm",
-                cancellationText : "cancel",
+                description : "Changes cannot be unmade",
+                confirmationText : "Confirm",
+                cancellationText : "Cancel",
                 title : "Do you really want to delete your account?"
             })
             await deleteAccount()
@@ -35,8 +35,8 @@ export const DeleteAccount = () => {
     }
 
     return (
-    <div style={middleStyle}>
-      <button className="btn btn-danger" onClick={handleDel}>delete acc</button>
+    <div style={authStyle}>
+      <button className="btn btn-danger" style={{width:'100%'}} onClick={handleDel}>Delete account</button>
     </div>
   )
 }

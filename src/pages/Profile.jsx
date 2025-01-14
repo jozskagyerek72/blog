@@ -1,5 +1,5 @@
 import React from 'react'
-import { extraUrlAndId, middleStyle } from '../utils/utils'
+import { authStyle, extraUrlAndId, middleStyle } from '../utils/utils'
 import { Form } from 'react-router-dom'
 import { useContext } from 'react'
 import {userContext} from "../context/UserContext.jsx"
@@ -47,7 +47,7 @@ export const Profile = () => {
   
   return (
     <div >
-      <div style={middleStyle}>
+      <div style={authStyle}>
         <h3>Profile settings</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label >Username:</label>
@@ -73,7 +73,7 @@ export const Profile = () => {
         </form>
         {msg && <Toastify {...msg}/>}
         
-        {avatar&& <img className='myavatar' style={{height:"100px", width:"100px", borderRadius:"100px"}} src={avatar} />}
+        {avatar&& <img className='myavatar' style={{height:"100px", width:"100px", marginTop:"20px", marginLeft:"auto", marginRight:"auto", objectFit:'cover'}} src={avatar} />}
       </div>
     </div>
   )
